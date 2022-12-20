@@ -77,6 +77,7 @@ const CheckoutForm = ({ appointment }) => {
       setCardError("");
       setTransactionId(paymentIntent.id);
       console.log(paymentIntent);
+
       setSuccess("Congrats! Your payment is completed");
 
       //store payment on database

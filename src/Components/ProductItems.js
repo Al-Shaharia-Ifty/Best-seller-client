@@ -28,7 +28,7 @@ const ProductItems = () => {
           {brand.map((name, i) => (
             <div
               key={i}
-              className="p-5 rounded-lg shadow-xl bg-gradient-to-l from-blue-900 to-purple-900 text-white"
+              className="p-5 rounded-lg hover:shadow-lg hover:-translate-y-1 bg-gradient-to-l from-blue-500 to-purple-500 text-white duration-300"
             >
               <Link to={`../category/${name}`}>
                 <h2 className="text-center text-xl font-semibold">{name}</h2>

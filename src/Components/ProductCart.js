@@ -19,8 +19,8 @@ const ProductCart = ({ p }) => {
   } = p;
   return (
     <div>
-      <div className="card card-compact bg-base-100 mx-3 shadow-lg">
-        <figure>
+      <div className="card card-compact bg-base-100 mx-3 transition ease-in-out hover:z-10 delay-150  hover:-translate-y-1 hover:shadow-lg duration-300">
+        <figure className="photo-center h-[200px]">
           <img src={img} alt="Shoes" />
         </figure>
         <div className="text-start p-3">

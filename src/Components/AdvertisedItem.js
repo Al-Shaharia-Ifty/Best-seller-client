@@ -45,7 +45,7 @@ const AdvertisedItem = () => {
               autoPlay={true}
               autoPlaySpeed={2000}
               responsive={responsive}
-              className="mx-10 mt-16 text-center z-10"
+              className="mx-10 mt-16 text-center z-10 py-5"
             >
               {products.map((p, i) => (
                 <ProductCart key={i} p={p} />

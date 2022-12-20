@@ -8,6 +8,7 @@ import auth from "../Shared/Firebase.init";
 import Loading from "../Shared/LoadingPage";
 
 const AddProduct = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const time = new Date().toLocaleString();
   const [type, setType] = useState("Good");
@@ -29,13 +30,14 @@ const AddProduct = () => {
     handleSubmit,
     reset,
   } = useForm();
-  if (isLoading) {
+  if (isLoading || loading) {
     return <Loading />;
   }
 
   const imageStorageKey = { key: process.env.REACT_APP_imageStorageKey };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const { email, verified } = user;
     const image = data.image[0];
     const formData = new FormData();
@@ -79,6 +81,7 @@ const AddProduct = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.insertedId) {
+                setLoading(false);
                 Swal.fire("Product Add Successful", "", "success");
                 reset();
                 navigate("/dashboard/my-product");
