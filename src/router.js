@@ -35,8 +35,6 @@ const router = createBrowserRouter([
             <CategoryProduct />
           </RequireAuth>
         ),
-        loader: ({ params }) =>
-          fetch(`https://seller-server.vercel.app/category/${params.name}`),
       },
       {
         path: "/all-products",
@@ -49,8 +47,6 @@ const router = createBrowserRouter([
             <ProductDetails />
           </RequireAuth>
         ),
-        loader: ({ params }) =>
-          fetch(`https://seller-server.vercel.app/product/${params.id}`),
       },
       { path: "/blog", element: <Blog /> },
       { path: "/login", element: <Login /> },

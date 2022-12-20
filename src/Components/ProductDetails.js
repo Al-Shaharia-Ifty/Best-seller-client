@@ -1,17 +1,28 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import bluetik from "../Assets/Twitter_Verified_Badge.svg.png";
 import BookModal from "./Modal/BookModal";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../Shared/Firebase.init";
 import ReportModal from "./Modal/ReportModal";
 import Loading from "../Shared/LoadingPage";
+import { useQuery } from "react-query";
 
 const ProductDetails = () => {
   const [openModal, setOpenModal] = useState(false);
   const [reportModal, setReportModal] = useState(false);
   const [user] = useAuthState(auth);
-  const data = useLoaderData();
+  const params = useParams();
+  const { data: productDetails, isLoading } = useQuery({
+    queryKey: ["productDetails"],
+    queryFn: () =>
+      fetch(`https://seller-server.vercel.app/product/${params.id}`).then(
+        (res) => res.json()
+      ),
+  });
+  if (isLoading) {
+    return <Loading />;
+  }
   const {
     img,
     name,
@@ -25,10 +36,7 @@ const ProductDetails = () => {
     condition,
     brand,
     report,
-  } = data;
-  if (!data) {
-    return <Loading />;
-  }
+  } = productDetails;
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -69,7 +77,7 @@ const ProductDetails = () => {
             {report === false && (
               <label
                 htmlFor="report-modal"
-                onClick={() => setReportModal(data)}
+                onClick={() => setReportModal(productDetails)}
                 className="btn mx-5"
               >
                 Report
@@ -79,7 +87,11 @@ const ProductDetails = () => {
         </div>
       </div>
       {openModal && (
-        <BookModal data={data} setOpenModal={setOpenModal} user={user} />
+        <BookModal
+          data={productDetails}
+          setOpenModal={setOpenModal}
+          user={user}
+        />
       )}
       {reportModal && (
         <ReportModal
